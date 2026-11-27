@@ -42,8 +42,8 @@ formularios que modifican datos. No usa frameworks externos.
 
 ## Sitio publicado
 
-- 🌐 Sitio: `https://TU-SUBDOMINIO.infinityfreeapp.com` *(reemplazar con el link real)*
-- 🔗 Repositorio: `https://github.com/USUARIO/agenda-contactos-u4` *(reemplazar con el link real)*
+- 🌐 Sitio: https://agendau4.freehosting.dev/
+- 🔗 Repositorio: `https://github.com/Jaimealex2106/agenda-contactos-u4`
 
 ## Estructura
 

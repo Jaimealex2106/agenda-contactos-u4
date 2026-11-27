@@ -12,14 +12,22 @@ $titulo = 'Listado de contactos';
 $q = trim($_GET['q'] ?? '');
 
 if ($q !== '') {
-    // Búsqueda: una sola sentencia preparada con el mismo parámetro reutilizado
-    // en nombre, apellido y teléfono mediante LIKE
+    // Búsqueda con LIKE en nombre, apellido y teléfono. Con sentencias preparadas
+    // reales de MySQL (EMULATE_PREPARES = false) cada marcador con nombre solo
+    // puede usarse una vez, por eso hay un marcador distinto por cada campo.
     $sql = 'SELECT id, nombre, apellido, telefono, foto, email
             FROM contactos
-            WHERE nombre LIKE :busqueda OR apellido LIKE :busqueda OR telefono LIKE :busqueda
+            WHERE nombre LIKE :busqueda_nombre
+               OR apellido LIKE :busqueda_apellido
+               OR telefono LIKE :busqueda_telefono
             ORDER BY nombre, apellido';
+    $patron = '%' . $q . '%';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['busqueda' => '%' . $q . '%']);
+    $stmt->execute([
+        'busqueda_nombre'   => $patron,
+        'busqueda_apellido' => $patron,
+        'busqueda_telefono' => $patron,
+    ]);
 } else {
     $sql = 'SELECT id, nombre, apellido, telefono, foto, email FROM contactos ORDER BY nombre, apellido';
     $stmt = $pdo->prepare($sql);
